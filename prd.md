@@ -1,684 +1,88 @@
-# Product Requirements Document (PRD)
+# The Build: "ZeroChat" — A Multi-Agent AI Chat Interface
 
-# ZeroChat — AI-Native Agent Chat Interface
-
-### Powered by AIKit, ZeroDB, ZeroMemory, Agent Cloud, and AINative Models
-
----
-
-# 1. Vision
-
-ZeroChat is the primary human interface for interacting with AI-native systems.
-
-Unlike traditional chat applications that simply send prompts to LLMs, ZeroChat is an agent-first operating environment where every conversation can access:
-
-* Long-term memory (ZeroMemory)
-* Structured knowledge (ZeroDB)
-* Agent swarms (Agent Cloud)
-* Workflows and tools (AIKit)
-* Multi-model inference (AINative Models API)
-* Knowledge graphs (GraphRAG)
-* Events and actions
-
-The goal is to create the ChatGPT of the AI-Native Enterprise.
+Why this project works for a demo:
+- Uses real AI Kit components (StreamingMessage, StreamingIndicator, CodeBlock)
+- Hits the design system hard (brand purples, Poppins/JetBrains Mono, animations)
+- Looks impressive fast (dark mode, gradient-shift, pulse-glow)
+- Shows 3+ component patterns in one screen
 
 ---
 
-# 2. Problem Statement
+## The PRD Students Will Write (Then Feed to AI)
 
-Current AI chat applications suffer from:
+Here's the template you'd walk through with the class:
 
-### No Persistent Memory
+# PRD: ZeroChat — AI Agent Chat Interface
 
-Every conversation starts over.
+## What We're Building
+A single-page AI chat app with streaming responses, agent selection, and code highlighting. Dark mode, polished, production-grade feel.
 
-### No Tool Awareness
+## Design System
 
-Models cannot reliably execute actions.
+### Colors (AI Kit brand tokens)
+- Background: #131726 (dark navy)
+- Cards: hsl(228, 29%, 18%)
+- Primary: #5867EF (brand purple)
+- Secondary: #338585 (brand teal)
+- Accent: #FCAE39 (brand gold) — used for active states
+- Cyan: #22BCDE — used for agent badges
+- Text: hsl(210, 40%, 98%)
+- Muted text: hsl(223, 30%, 27%)
 
-### No Agent Orchestration
+### Typography
+- Headings & UI: Poppins (500, 600, 700)
+- Code & mono: JetBrains Mono (400, 500)
+- Base size: 14px body, 12px metadata
 
-Users interact with one model instead of coordinated specialists.
+### Animations
+- Message appear: slide-up 0.5s ease-out
+- Streaming indicator: pulse-glow 2s infinite
+- Background hero: gradient-shift 8s infinite
+- Code block copy button: fade-in 0.3s
 
-### No Organizational Context
+### Shadows
+- Cards: 0 4px 20px rgba(88, 103, 239, 0.08)
+- Input focus: 0 0 0 2px rgba(88, 103, 239, 0.3)
 
-Knowledge remains trapped in documents and systems.
+## Layout (Single Page)
+1. **Header bar** — App name "ZeroChat", agent selector dropdown (3 agents: Research, Coder, Analyst), dark/light toggle
+2. **Chat area** — Scrollable message list, user messages right-aligned (teal bg), AI messages left-aligned (card bg), code blocks with syntax highlighting and copy button
+3. **Input area** — Textarea with send button, character count, keyboard shortcut hint (⌘+Enter)
+4. **Streaming indicator** — Wave animation while AI responds
 
-### No Operational Integration
+## Components to Use
+- StreamingMessage from @ainative/aikit-react
+- StreamingIndicator (wave variant)
+- CodeBlock with "nord" theme
+- Custom AgentBadge with cyan/gold/teal per agent type
 
-Chats cannot become workflows.
+## Interactions
+- Send message → show streaming indicator → stream response token-by-token (typewriter animation)
+- Click agent selector → switch agent, show badge color change
+- Code blocks → hover reveals copy button → click copies → show "Copied!" toast
+- Empty state → show 3 example prompt cards with gradient borders
 
----
-
-# 3. Product Goals
-
-### Primary Goals
-
-* Unified AI-native chat experience
-* Multi-agent collaboration
-* Persistent memory
-* Organizational knowledge access
-* Workflow execution
-* Multi-model routing
-* Human-in-the-loop governance
-
-### Success Metrics
-
-| Metric                    | Goal          |
-| ------------------------- | ------------- |
-| First Response Time       | < 2 sec       |
-| Tool Execution            | > 95% success |
-| Memory Recall Accuracy    | > 90%         |
-| Agent Collaboration Tasks | > 70%         |
-| Session Retention         | > 60%         |
-| User Satisfaction         | > 4.5/5       |
-
----
-
-# 4. User Personas
-
-## Founder
-
-Needs:
-
-* Strategy
-* Research
-* Product design
-* Fundraising
-
-## Developer
-
-Needs:
-
-* Coding assistance
-* Debugging
-* Architecture reviews
-* Deployment
-
-## Operator
-
-Needs:
-
-* Workflow automation
-* Reporting
-* Analytics
-
-## Enterprise User
-
-Needs:
-
-* Company knowledge
-* Document search
-* Process execution
-
-## Agent
-
-Needs:
-
-* Memory
-* Tools
-* Knowledge access
-* Coordination
+## Sample Data
+Pre-load 2 messages:
+1. User: "Write a Python function to calculate fibonacci"
+2. AI: Streams a response with a code block and explanation
 
 ---
 
-# 5. Core Architecture
-
-```text
-┌────────────────────┐
-│     ZeroChat UI    │
-└─────────┬──────────┘
-          │
-          ▼
-
-┌────────────────────┐
-│   Conversation API │
-└─────────┬──────────┘
-
-          ▼
-
-┌────────────────────┐
-│ Agent Orchestrator │
-│   Agent Cloud      │
-└─────────┬──────────┘
-
-     ┌────┼────┐
-     ▼    ▼    ▼
-
- Memory  Tools  Models
-ZeroDB  AIKit  AINative
-
-     ▼
-Knowledge Graph
-     ▼
-ZeroMemory
-```
-
----
-
-# 6. Core Features
-
-## Feature 1 — Chat Interface
-
-Modern AI-native interface.
-
-### Capabilities
-
-* Chat history
-* Streaming responses
-* Markdown rendering
-* Code blocks
-* Images
-* Attachments
-* Multi-modal input
-
-### User Stories
-
-As a user
-
-I want to chat naturally
-
-So I can accomplish work.
-
----
-
-## Feature 2 — AIKit Tool Calling
-
-Agents can invoke tools.
-
-### Examples
-
-* Search
-* Database Query
-* Email
-* Calendar
-* CRM
-* GitHub
-* Slack
-* Discord
-* OpenCap Stack
-* ZeroCommerce
-
-### User Flow
-
-```text
-User Message
-      ↓
-
-Agent Determines Tool
-      ↓
-
-AIKit Executes
-      ↓
-
-Result Returned
-      ↓
-
-Agent Responds
-```
-
----
-
-## Feature 3 — Agent Swarms
-
-Users can invoke multiple agents.
-
-Example:
-
-```text
-@researcher
-@developer
-@designer
-@marketing
-```
-
-### Swarm Mode
-
-User:
-
-"Build a landing page"
-
-System:
-
-Research Agent
-↓
-
-Designer Agent
-↓
-
-Developer Agent
-↓
-
-QA Agent
-↓
-
-Final Output
-
----
-
-### Agent Types
-
-* Architect
-* CTO
-* Developer
-* Researcher
-* Product Manager
-* Designer
-* QA Engineer
-* Sales Agent
-* Marketing Agent
-* Customer Support
-
----
-
-## Feature 4 — Memory Integration
-
-Powered by ZeroMemory.
-
-Every interaction generates memory.
-
-### Memory Types
-
-#### Episodic
-
-Past conversations
-
-#### Semantic
-
-Facts
-
-#### Procedural
-
-How things are done
-
-#### Agent Memories
-
-Agent-specific learning
-
----
-
-### Memory Workflow
-
-```text
-Conversation
-      ↓
-
-Memory Extraction
-      ↓
-
-Embedding
-      ↓
-
-ZeroDB Storage
-      ↓
-
-Recall During Chat
-```
-
----
-
-## Feature 5 — GraphRAG
-
-Powered by ZeroDB Graph.
-
-Allows:
-
-* Relationship discovery
-* Organization intelligence
-* Knowledge navigation
-
-Example:
-
-User:
-
-"What do we know about Cerebras?"
-
-Graph returns:
-
-* Contacts
-* Meetings
-* Emails
-* Notes
-* Deals
-* Projects
-
----
-
-## Feature 6 — Multi-Model Routing
-
-Powered by AINative Models.
-
-### Available Models
-
-* Claude
-* GPT
-* Gemini
-* Llama
-* DeepSeek
-* Mistral
-* Grok
-* Qwen
-
-### Routing Modes
-
-#### Auto
-
-Best model selected automatically.
-
-#### Manual
-
-User selects model.
-
-#### Ensemble
-
-Multiple models collaborate.
-
----
-
-## Feature 7 — Workspace Context
-
-Users can create workspaces.
-
-Examples:
-
-* AINative
-* OpenCap Stack
-* ProperStack
-* Foundation
-
-Each workspace has:
-
-* Memory
-* Knowledge
-* Documents
-* Agents
-* Settings
-
----
-
-## Feature 8 — Files & Documents
-
-Upload:
-
-* PDF
-* DOCX
-* XLSX
-* CSV
-* Images
-
-Pipeline:
-
-```text
-Upload
-  ↓
-
-Chunk
-  ↓
-
-Embed
-  ↓
-
-Store in ZeroDB
-  ↓
-
-Graph Build
-  ↓
-
-Available to Agents
-```
-
----
-
-## Feature 9 — Workflow Execution
-
-Conversations become actions.
-
-Example:
-
-User:
-
-"Send investor update."
-
-Agent:
-
-* Drafts email
-* Reviews contacts
-* Sends via Gmail Tool
-
----
-
-## Feature 10 — Agent Marketplace
-
-Install agent packs.
-
-Examples:
-
-* Fundraising Agent
-* Sales Agent
-* Startup Advisor
-* Product Manager
-* Investor Relations
-* OpenCap Assistant
-
----
-
-# 7. UI Design
-
-## Left Sidebar
-
-```text
-Workspace
-Conversations
-Agents
-Memories
-Documents
-Settings
-```
-
----
-
-## Main Chat Area
-
-```text
-Conversation
-Streaming Output
-Tool Calls
-Agent Activity
-```
-
----
-
-## Right Sidebar
-
-```text
-Active Agents
-Memory Recall
-Sources
-Tool Execution
-Graph Context
-```
-
----
-
-# 8. Data Model
-
-## Conversations
-
-```json
-{
-  "id": "uuid",
-  "workspaceId": "uuid",
-  "title": "Fundraising Strategy",
-  "createdAt": "timestamp",
-  "updatedAt": "timestamp"
-}
-```
-
----
-
-## Messages
-
-```json
-{
-  "id": "uuid",
-  "conversationId": "uuid",
-  "role": "user",
-  "content": "...",
-  "model": "claude-sonnet",
-  "tokens": 500
-}
-```
-
----
-
-## Memories
-
-```json
-{
-  "id": "uuid",
-  "workspaceId": "uuid",
-  "memoryType": "episodic",
-  "content": "...",
-  "embedding": [],
-  "importance": 0.92
-}
-```
-
----
-
-## Agents
-
-```json
-{
-  "id": "uuid",
-  "name": "Research Agent",
-  "persona": {},
-  "tools": [],
-  "memoryEnabled": true
-}
-```
-
----
-
-## Tool Executions
-
-```json
-{
-  "id": "uuid",
-  "tool": "gmail",
-  "status": "success",
-  "duration": 345
-}
-```
-
----
-
-# 9. MVP Scope
-
-### Included
-
-✅ Chat UI
-
-✅ Streaming
-
-✅ AIKit Tools
-
-✅ ZeroMemory
-
-✅ ZeroDB
-
-✅ Models API
-
-✅ Agent Swarms
-
-✅ File Upload
-
-✅ GraphRAG
-
-✅ Workspace Management
-
----
-
-### Excluded
-
-❌ Voice
-
-❌ Video Avatars
-
-❌ Mobile Apps
-
-❌ Marketplace Billing
-
-❌ External Agent Sharing
-
----
-
-# 10. Agile Epics
-
-### Epic 1
-
-Conversation Platform
-
-### Epic 2
-
-Agent Orchestration
-
-### Epic 3
-
-Memory System
-
-### Epic 4
-
-GraphRAG Integration
-
-### Epic 5
-
-AIKit Tool Execution
-
-### Epic 6
-
-Model Routing
-
-### Epic 7
-
-Workspace Management
-
-### Epic 8
-
-Document Intelligence
-
-### Epic 9
-
-Workflow Automation
-
-### Epic 10
-
-Observability & Analytics
-
----
-
-# 11. Future Vision
-
-ZeroChat evolves from a chat application into the operating system for AI-native organizations.
-
-The long-term architecture becomes:
-
-```text
-Human
-   ↕
-ZeroChat
-   ↕
-Agent Cloud
-   ↕
-ZeroMemory
-   ↕
-ZeroDB Graph
-   ↕
-AIKit Tools
-   ↕
-Enterprise Systems
-```
-
-In this future, chat is not the product.
-
-Chat is simply the interface to a living organizational intelligence system where humans and agent swarms collaborate through a shared memory, shared knowledge graph, and shared execution layer.
+## Teaching Points to Hit
+
+### During PRD writing (5-12 min):
+- "The PRD IS the product. Garbage spec = garbage UI."
+- Show how design tokens eliminate ambiguity — no "make it look nice"
+- Point out the specificity: exact hex codes, animation durations, component names
+- "You're not coding, you're art-directing an AI engineer"
+
+### During vibe coding (12-25 min):
+- Paste the PRD into Claude Code with: "Build this as a single Next.js page using the AI Kit design system. Use Tailwind CSS. Make it beautiful."
+- Let students see it generate in real-time
+- Point out how specific PRD specs → specific code decisions
+- If something's off, show the "tweak loop": "Make the gradient more subtle", "Add a glassmorphism effect to the cards"
+
+### During polish (25-30 min):
+- Add one "delight" feature live: particle background, typing sound effect, or message reactions
+- Recap: PRD specificity → design quality. The AI is only as good as your spec.
